@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DS - Balthazar UI · Kameleoon Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS (from Figma) ─────────────────────────────────── */
+:root {
+  /* Blue scale ($blue-10 → $blue-99) */
+  --blue-10: #FBFAFF;
+  --blue-20: #F5F5FF;
+  --blue-25: #F0EFFF;
+  --blue-30: #E1E0FF;
+  --blue-35: #C0C1FF;
+  --blue-40: #A1A3FF;
+  --blue-50: #7F84FF;
+  --blue-60: #5E62FF;
+  --blue-70: #4142EF;  /* ← primary brand */
+  --blue-80: #3838E7;
+  --blue-90: #231DD9;
+  --blue-95: #1200CA;
+  --blue-98: #0D00AA;
+  --blue-99: #05006D;
+
+  /* Gray scale ($gray-10 → $gray-99) */
+  --gray-10: #FCFCFD;
+  --gray-20: #F9F9FB;
+  --gray-25: #EDEBF2;
+  --gray-30: #DEDCE5;
+  --gray-35: #C7C5D0;
+  --gray-40: #ACAAB4;
+  --gray-50: #918F9A;
+  --gray-60: #777680;
+  --gray-70: #5E5D67;
+  --gray-80: #52515B;
+  --gray-90: #46464F;
+  --gray-95: #3B3B44;
+  --gray-98: #303039;
+  --gray-99: #1B1B23;
+
+  /* Black scale */
+  --black-00: #FFFFFF;
+  --black-100: #0A0A0A;
+
+  /* Black tints */
+  --black-50: #65659A;
+  --black-60: #5B5B8A;
+  --black-70: #4D4D75;
+  --black-80: #414163;
+  --black-90: #33334E;
+  --black-95: #292944;
+  --black-98: #1F1F3A;
+  --black-99: #000027;
+
+  /* Green scale */
+  --green-10: #F4FFF7;
+  --green-20: #E8FFF1;
+  --green-25: #BCFFE0;
+  --green-30: #53FDC3;
+  --green-35: #24E0A8;
+  --green-40: #00C290;
+  --green-50: #00A679;
+  --green-60: #008864;
+  --green-70: #026D4E;
+  --green-80: #035F45;
+  --green-90: #00513A;
+  --green-95: #004531;
+  --green-98: #003827;
+  --green-99: #002115;
+
+  /* Red scale */
+  --red-10: #FFFBFA;
+  --red-20: #FFF8F7;
+  --red-25: #FFEDEA;
+  --red-30: #FFDBD6;
+  --red-35: #FFB4AC;
+  --red-40: #FF897D;
+  --red-50: #FD4848;
+  --red-60: #DE0202;
+  --red-70: #BA191A;
+  --red-80: #A80710;
+  --red-90: #940009;
+  --red-95: #7E0106;
+  --red-98: #690005;
+  --red-99: #410002;
+
+  /* Yellow scale */
+  --yellow-10: #FFFBF7;
+  --yellow-20: #FFF9F2;
+  --yellow-25: #FFF6EB;
+  --yellow-30: #FFEBD4;
+  --yellow-35: #FFDDB6;
+  --yellow-40: #FFCC85;
+  --yellow-50: #FFB958;
+  --yellow-60: #E09F43;
+  --yellow-70: #CC8C33;
+  --yellow-80: #AD7323;
+  --yellow-90: #845400;
+  --yellow-95: #643F00;
+  --yellow-98: #462B00;
+  --yellow-99: #2A1800;
+
+  /* Wine scale */
+  --wine-10: #FFFAFA;
+  --wine-20: #FFF5F5;
+  --wine-25: #FFECED;
+  --wine-30: #FFDBDB;
+  --wine-35: #FFB2B8;
+  --wine-40: #FF8794;
+  --wine-50: #EE6276;
+  --wine-60: #CC495D;
+  --wine-70: #AB3046;
+  --wine-80: #9C243B;
+  --wine-90: #8B1630;
+  --wine-95: #7B0526;
+  --wine-98: #67001D;
+  --wine-99: #40000F;
+
+  /* Extra/named colors */
+  --jasmine: #FFE299;
+  --brick: #CA4E1B;
+  --tangerine: #FF8346;
+  --fuchsia: #BD3597;
+  --pink: #DF57BC;
+  --grinch: #6FBE49;
+  --grass: #6CD800;
+  --turquoise: #35BDAD;
+  --sea: #568BF2;
+  --sky: #20B3DF;
+  --sand: #E1A095;
+  --lavanda: #9074BE;
+  --purple: #9747FF;
+
+  /* Semantic aliases */
+  --color-primary: var(--blue-70);
+  --color-primary-light: var(--blue-35);
+  --color-primary-bg: var(--blue-20);
+  --color-primary-dark: var(--blue-80);
+  --color-success: var(--green-40);
+  --color-success-bg: var(--green-10);
+  --color-danger: var(--red-50);
+  --color-danger-bg: var(--red-10);
+  --color-warning: var(--yellow-60);
+  --color-warning-bg: var(--yellow-10);
+  --color-text-primary: var(--black-100);
+  --color-text-secondary: var(--gray-70);
+  --color-text-muted: var(--gray-50);
+  --color-border: var(--gray-30);
+  --color-surface: var(--black-00);
+  --color-bg: var(--gray-10);
+
+  /* Typography ($typo-font-primary / $typo-font-secondary / $typo-font-monospace) */
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Roboto', sans-serif;
+  --font-monospace: 'Roboto Mono', 'Menlo', monospace;
+
+  /* Type sizes from tokens */
+  --size-h1: 34px;
+  --size-h2: 26px;
+  --size-h3: 22px;
+  --size-h4: 18px;
+  --size-h5: 16px;
+  --size-h6: 14px;
+  --size-text-l: 16px;
+  --size-text-m: 13px;
+  --size-text-s: 12px;
+  --size-caption: 12px;
+  --size-overline-m: 12px;
+  --size-overline-s: 10px;
+  --size-button-m: 14px;
+  --size-button-s: 12px;
+  --size-label: 13px;
+  --size-small: 11px;
+  --size-code: 13px;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Layout */
+  --sidebar-w: 256px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-pill: 100px;
+}
+
+/* ─── RESET ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-secondary);
+  font-size: var(--size-text-m);
+  font-weight: var(--weight-regular);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-35); border-radius: 99px; }
+
+/* ─── SIDEBAR ────────────────────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 200;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 30px; height: 30px;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.brand-mark svg { display: block; }
+
+.brand-info { min-width: 0; }
+.brand-name {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 12.5px;
+  color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.brand-sub {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  font-weight: var(--weight-regular);
+  display: block;
+  margin-top: 1px;
+  letter-spacing: 0.04em;
+}
+
+.nav-section { padding: 8px 0 4px; }
+
+.nav-section-label {
+  font-family: var(--font-primary);
+  font-size: 9.5px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 8px 20px 4px;
+  display: block;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6.5px 20px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+  position: relative;
+}
+.nav-link:hover { background: var(--blue-10); color: var(--color-primary); }
+.nav-link.active {
+  color: var(--color-primary);
+  background: var(--blue-20);
+  font-weight: var(--weight-medium);
+}
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 5px; bottom: 5px;
+  width: 2.5px;
+  background: var(--color-primary);
+  border-radius: 0 2px 2px 0;
+}
+.nav-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gray-35);
+  flex-shrink: 0;
+  transition: background 0.12s;
+}
+.nav-link.active .nav-dot,
+.nav-link:hover .nav-dot { background: var(--color-primary); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.sidebar-footer strong { color: var(--color-text-secondary); }
+
+/* ─── MAIN ───────────────────────────────────────────────────────── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── HERO ───────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  background: var(--color-primary);
+  overflow: hidden;
+  padding: 64px 64px 56px;
+}
+
+.hero-orb1 {
+  position: absolute;
+  top: -100px; right: -60px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.055);
+  pointer-events: none;
+}
+.hero-orb2 {
+  position: absolute;
+  bottom: -140px; right: 240px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.035);
+  pointer-events: none;
+}
+.hero-orb3 {
+  position: absolute;
+  top: 20px; left: -80px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 14px 4px 10px;
+  background: rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.7);
+}
+
+.hero h1 {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 54px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub {
+  font-family: var(--font-secondary);
+  font-weight: 300;
+  font-size: 18px;
+  color: rgba(255,255,255,0.72);
+  letter-spacing: 0.015em;
+  max-width: 500px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+.stat-value {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 26px;
+  color: #fff;
+  letter-spacing: -0.02em;
+  display: block;
+}
+.stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.04em;
+  margin-top: 1px;
+  display: block;
+}
+
+.hero-token {
+  display: inline-block;
+  padding: 3px 9px;
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  color: rgba(255,255,255,0.8);
+  margin-top: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── CONTENT ────────────────────────────────────────────────────── */
+.content { padding: 48px 64px 80px; max-width: 1120px; }
+
+/* ─── SECTION ────────────────────────────────────────────────────── */
+.section {
+  margin-bottom: 80px;
+  scroll-margin-top: 20px;
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-icon {
+  width: 36px; height: 36px;
+  background: var(--blue-20);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.section-desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+}
+
+/* ─── SUBSECTION ─────────────────────────────────────────────────── */
+.sub { margin-bottom: 36px; }
+.sub-title {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+/* ─── TOKEN PILL ─────────────────────────────────────────────────── */
+.token {
+  display: inline-block;
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  color: var(--color-primary);
+  background: var(--blue-20);
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+}
+
+/* ─── COLOR SYSTEM ───────────────────────────────────────────────── */
+.color-ramp {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 20px;
+}
+.color-swatch {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: default;
+  position: relative;
+}
+.swatch-chip { height: 52px; }
+.swatch-meta {
+  padding: 5px 7px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: none;
+}
+.swatch-scale {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+  font-size: 10px;
+  color: var(--color-text-primary);
+}
+.swatch-hex {
+  font-family: var(--font-monospace);
+  font-size: 9px;
+  color: var(--color-text-muted);
+  margin-top: 1px;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 10px;
+}
+.color-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.color-card-chip { height: 72px; }
+.color-card-info { padding: 10px 12px; }
+.color-card-name {
+  font-weight: var(--weight-medium);
+  font-size: 12.5px;
+  color: var(--color-text-primary);
+}
+.color-card-role {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+.color-card-token {
+  font-family: var(--font-monospace);
+  font-size: 10px;
+  color: var(--color-primary);
+  margin-top: 5px;
+  display: block;
+}
+
+/* ─── EXTRA COLORS ───────────────────────────────────────────────── */
+.extra-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.extra-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.extra-dot { width: 24px; height: 24px; border-radius: var(--radius-xs); flex-shrink: 0; }
+.extra-info { line-height: 1.3; }
+.extra-name { font-family: var(--font-monospace); font-size: 11px; color: var(--color-primary); font-weight: 500; }
+.extra-hex { font-family: var(--font-monospace); font-size: 10px; color: var(--color-text-muted); }
+
+/* ─── TYPOGRAPHY SPECIMENS ───────────────────────────────────────── */
+.type-specimen {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.type-sample {
+  padding: 20px 24px;
+  background: var(--color-surface);
+}
+.type-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  background: var(--gray-10);
+  border-top: 1px solid var(--color-border);
+}
+.type-meta-cell {
+  padding: 8px 16px;
+  border-right: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.type-meta-cell:last-child { border-right: none; }
+.type-meta-cell strong {
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* ─── SPACING ────────────────────────────────────────────────────── */
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.spacing-row:last-child { border-bottom: none; }
+.spacing-bar {
+  background: var(--blue-35);
+  height: 22px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  min-width: 4px;
+}
+.spacing-token { font-family: var(--font-monospace); font-size: 12px; color: var(--color-primary); min-width: 110px; }
+.spacing-px { font-size: 12px; color: var(--color-text-muted); min-width: 60px; }
+.spacing-use { font-size: 12px; color: var(--color-text-secondary); }
+
+/* ─── RADIUS ─────────────────────────────────────────────────────── */
+.radius-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.radius-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.radius-box {
+  width: 52px; height: 52px;
+  background: var(--color-primary);
+}
+.radius-label { font-size: 11px; color: var(--color-text-muted); text-align: center; line-height: 1.4; }
+.radius-label code { font-family: var(--font-monospace); font-size: 10px; display: block; color: var(--color-primary); }
+
+/* ─── TABLE ──────────────────────────────────────────────────────── */
+.ds-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.ds-table th {
+  text-align: left;
+  padding: 9px 14px;
+  background: var(--gray-10);
+  border-bottom: 1.5px solid var(--color-border);
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.ds-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  vertical-align: top;
+}
+.ds-table tr:last-child td { border-bottom: none; }
+.ds-table code { font-family: var(--font-monospace); font-size: 11px; background: var(--blue-20); color: var(--color-primary); padding: 1px 5px; border-radius: 3px; }
+
+/* ─── CALLOUT ────────────────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  border-left: 3px solid;
+  margin-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.callout-info { background: var(--blue-20); border-color: var(--blue-70); color: var(--blue-99); }
+.callout-info strong { color: var(--blue-80); }
+.callout-warn { background: var(--yellow-10); border-color: var(--yellow-60); color: var(--yellow-99); }
+.callout-warn strong { color: var(--yellow-90); }
+.callout-icon { font-size: 14px; flex-shrink: 0; line-height: 1.55; }
+
+/* ─── COMPONENT CARD ─────────────────────────────────────────────── */
+.comp-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-surface);
+  margin-bottom: 28px;
+}
+.comp-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.comp-name {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 16px;
+  color: var(--color-text-primary);
+}
+.comp-desc { font-size: 13px; color: var(--color-text-secondary); margin-top: 3px; }
+.comp-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--blue-20);
+  color: var(--color-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.comp-body { padding: 22px 24px; }
+
+.preview {
+  background: var(--gray-10);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 22px;
+  min-height: 80px;
+}
+
+.props-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.prop-card {
+  padding: 12px 14px;
+  background: var(--gray-10);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.prop-name { font-family: var(--font-monospace); font-size: 11px; color: var(--color-primary); margin-bottom: 4px; font-weight: 500; }
+.prop-vals { font-size: 12px; color: var(--color-text-secondary); line-height: 1.45; }
+
+.usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.usage-card { padding: 14px 16px; border-radius: var(--radius-md); border: 1px solid; }
+.usage-card.do { background: var(--green-10); border-color: var(--green-25); }
+.usage-card.dont { background: var(--red-10); border-color: var(--red-35); }
+.usage-head {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.usage-card.do .usage-head { color: var(--green-60); }
+.usage-card.dont .usage-head { color: var(--red-60); }
+.usage-text { font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.5; }
+
+.divider-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 32px;
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.divider-label::before, .divider-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ─── DEMO COMPONENTS ────────────────────────────────────────────── */
+/* Button */
+.d-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-semibold);
+  font-size: 12px;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: all 0.14s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* Sizes */
+.d-btn-m { height: 36px; padding: 0 16px; }
+.d-btn-s { height: 28px; padding: 0 12px; font-size: 11px; }
+.d-btn-l { height: 44px; padding: 0 24px; font-size: 13px; }
+/* Variants */
+.d-btn-primary { background: var(--color-primary); color: #fff; }
+.d-btn-primary:hover { background: var(--blue-80); }
+.d-btn-secondary { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
+.d-btn-secondary:hover { background: var(--blue-20); }
+.d-btn-ghost { background: transparent; color: var(--color-text-secondary); border: 1.5px solid var(--color-border); }
+.d-btn-ghost:hover { background: var(--gray-10); }
+.d-btn-danger { background: var(--red-50); color: #fff; }
+.d-btn-danger:hover { background: var(--red-60); }
+.d-btn-link { background: transparent; color: var(--color-primary); text-decoration: underline; font-size: 13px; text-transform: none; letter-spacing: 0; }
+.d-btn:disabled { opacity: 0.42; cursor: not-allowed; }
+
+/* Badge */
+.d-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.05em;
+}
+.d-badge-blue   { background: var(--blue-20);   color: var(--blue-90); }
+.d-badge-green  { background: var(--green-10);  color: var(--green-70); }
+.d-badge-red    { background: var(--red-10);    color: var(--red-80); }
+.d-badge-yellow { background: var(--yellow-10); color: var(--yellow-90); }
+.d-badge-wine   { background: var(--wine-10);   color: var(--wine-80); }
+.d-badge-gray   { background: var(--gray-20);   color: var(--gray-80); }
+
+/* Avatar */
+.d-avatar {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-family: var(--font-primary);
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* Input */
+.d-input {
+  height: 36px;
+  padding: 0 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  outline: none;
+  transition: border 0.13s, box-shadow 0.13s;
+  width: 220px;
+}
+.d-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(65,66,239,.12); }
+.d-input.error { border-color: var(--red-50); }
+.d-input:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Toggle */
+.d-toggle {
+  width: 38px; height: 21px;
+  background: var(--gray-35);
+  border-radius: var(--radius-pill);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.d-toggle.on { background: var(--color-primary); }
+.d-toggle::after {
+  content: '';
+  position: absolute;
+  top: 2.5px; left: 2.5px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.18);
+}
+.d-toggle.on::after { transform: translateX(17px); }
+
+/* Checkbox / Radio */
+.d-check, .d-radio-in { accent-color: var(--color-primary); width: 15px; height: 15px; cursor: pointer; }
+
+/* Tab strip */
+.d-tabs { display: flex; border-bottom: 2px solid var(--color-border); }
+.d-tab {
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+}
+.d-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
+/* Tag */
+.d-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  border: 1px solid;
+}
+.d-tag-default { background: var(--gray-20); border-color: var(--gray-35); color: var(--color-text-secondary); }
+.d-tag-blue    { background: var(--blue-20); border-color: var(--blue-30); color: var(--color-primary); }
+.d-tag-green   { background: var(--green-10); border-color: var(--green-25); color: var(--green-60); }
+
+/* Notification */
+.d-notif {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 12px 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+  max-width: 360px;
+}
+.notif-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  color: #fff;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.d-notif-info    { background: var(--blue-20);   border-color: var(--blue-30);  }
+.d-notif-info .notif-dot    { background: var(--color-primary); }
+.d-notif-success { background: var(--green-10);  border-color: var(--green-25); }
+.d-notif-success .notif-dot { background: var(--green-50); }
+.d-notif-error   { background: var(--red-10);    border-color: var(--red-35);   }
+.d-notif-error .notif-dot   { background: var(--red-50); }
+.notif-title { font-size: 13px; font-weight: var(--weight-medium); color: var(--color-text-primary); margin-bottom: 2px; }
+.notif-body  { font-size: 12px; color: var(--color-text-secondary); line-height: 1.45; }
+
+/* Progress */
+.d-progress-track {
+  height: 5px;
+  background: var(--blue-20);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  width: 100%;
+}
+.d-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+}
+
+/* Skeleton */
+.d-skeleton {
+  background: linear-gradient(90deg, var(--gray-25) 25%, var(--gray-10) 50%, var(--gray-25) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Tooltip */
+.d-tooltip-wrap { position: relative; display: inline-block; }
+.d-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gray-99);
+  color: #fff;
+  font-size: 11.5px;
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+.d-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--gray-99);
+}
+
+/* Accordion */
+.d-acc-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 5px;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.d-acc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+}
+.d-acc-chevron {
+  width: 16px; height: 16px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: transform 0.18s;
+}
+.d-acc-item.open .d-acc-chevron { transform: rotate(180deg); }
+.d-acc-body {
+  padding: 0 16px 13px;
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* Modal */
+.d-modal-backdrop {
+  background: rgba(10,10,10,0.4);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  min-height: 180px;
+  width: 100%;
+}
+.d-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  width: 300px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.16);
+}
+.d-modal-title { font-family: var(--font-primary); font-weight: var(--weight-bold); font-size: 15px; margin-bottom: 8px; }
+.d-modal-body  { font-size: 12.5px; color: var(--color-text-secondary); margin-bottom: 18px; line-height: 1.5; }
+.d-modal-actions { display: flex; gap: 7px; justify-content: flex-end; }
+
+/* Hyperlink */
+.d-link { color: var(--color-primary); font-size: 13px; font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 3px; letter-spacing: 0.01em; }
+
+/* Icons grid */
+.icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px,1fr)); gap: 7px; }
+.icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.icon-cell svg { width: 18px; height: 18px; color: var(--color-text-secondary); }
+
+/* Nav dark preview */
+.dark-nav-preview {
+  background: var(--black-99);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 180px;
+  display: flex;
+}
+.dark-nav-sidebar {
+  width: 190px;
+  background: var(--black-95);
+  padding: 14px 0;
+  flex-shrink: 0;
+}
+.dark-nav-header {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 14px 12px;
+}
+.dark-nav-logo { width: 24px; height: 24px; background: var(--blue-70); border-radius: 5px; }
+.dark-nav-brand { font-family: var(--font-primary); font-weight: 700; font-size: 11px; color: var(--blue-35); }
+.dark-nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  font-size: 12px;
+}
+.dark-nav-item.active { background: rgba(192,193,255,.12); border-left: 2px solid var(--blue-35); }
+.dark-nav-item.active span { color: var(--blue-35); }
+.dark-nav-item span { color: rgba(255,255,255,.42); }
+.dark-nav-content { flex: 1; padding: 16px; }
+.dark-nav-row { background: rgba(255,255,255,.06); border-radius: 7px; height: 34px; margin-bottom: 9px; }
+.dark-nav-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.dark-nav-card { background: rgba(255,255,255,.04); border-radius: 7px; height: 52px; }
+
+/* Shadowing */
+.shadow-row { display: flex; gap: 20px; flex-wrap: wrap; }
+.shadow-box {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+  min-width: 130px;
+}
+.shadow-box strong { display: block; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; font-weight: var(--weight-medium); }
+
+/* Side panel preview */
+.d-panel-preview {
+  background: var(--gray-10);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 180px;
+  display: flex;
+}
+.d-panel-main { flex: 1; padding: 16px; opacity: 0.5; }
+.d-panel-main-row { background: var(--gray-30); height: 13px; border-radius: 4px; margin-bottom: 8px; }
+.d-panel-drawer { width: 240px; background: var(--color-surface); border-left: 1px solid var(--color-border); padding: 16px; flex-shrink: 0; }
+.d-panel-drawer-title { font-family: var(--font-primary); font-weight: 700; font-size: 13px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.d-panel-drawer-row { background: var(--gray-20); height: 11px; border-radius: 3px; margin-bottom: 7px; }
+.d-panel-cta { background: var(--color-primary); border-radius: var(--radius-md); height: 30px; margin-top: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  SIDEBAR                                                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <a href="#hero" class="sidebar-brand">
+    <div class="brand-mark">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/>
+        <circle cx="8" cy="8" r="3.5" fill="white"/>
+        <circle cx="8" cy="8" r="1.2" fill="#4142EF"/>
+      </svg>
+    </div>
+    <div class="brand-info">
+      <span class="brand-name">DS – Balthazar UI</span>
+      <span class="brand-sub">Kameleoon · 2023</span>
+    </div>
+  </a>
+
+  <nav>
+    <div class="nav-section">
+      <span class="nav-section-label">Foundations</span>
+      <a href="#colors"     class="nav-link active"><span class="nav-dot"></span>Colors</a>
+      <a href="#typography" class="nav-link"><span class="nav-dot"></span>Typography</a>
+      <a href="#layout"     class="nav-link"><span class="nav-dot"></span>Layout & Spacing</a>
+      <a href="#shadow"     class="nav-link"><span class="nav-dot"></span>Shape & Shadow</a>
+      <a href="#icons"      class="nav-link"><span class="nav-dot"></span>Icons</a>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-section-label">Components</span>
+      <a href="#accordion"    class="nav-link"><span class="nav-dot"></span>Accordion</a>
+      <a href="#avatar"       class="nav-link"><span class="nav-dot"></span>Avatar</a>
+      <a href="#badge"        class="nav-link"><span class="nav-dot"></span>Badge</a>
+      <a href="#button"       class="nav-link"><span class="nav-dot"></span>Button</a>
+      <a href="#checkbox"     class="nav-link"><span class="nav-dot"></span>Checkbox & Radio</a>
+      <a href="#hyperlink"    class="nav-link"><span class="nav-dot"></span>Hyperlink</a>
+      <a href="#inputs"       class="nav-link"><span class="nav-dot"></span>Inputs</a>
+      <a href="#notification" class="nav-link"><span class="nav-dot"></span>Notification</a>
+      <a href="#overlays"     class="nav-link"><span class="nav-dot"></span>Overlays</a>
+      <a href="#progress"     class="nav-link"><span class="nav-dot"></span>Progress Bar</a>
+      <a href="#skeleton"     class="nav-link"><span class="nav-dot"></span>Skeleton</a>
+      <a href="#tabs"         class="nav-link"><span class="nav-dot"></span>Tabs</a>
+      <a href="#tag"          class="nav-link"><span class="nav-dot"></span>Tag</a>
+      <a href="#toggle"       class="nav-link"><span class="nav-dot"></span>Toggle</a>
+      <a href="#tooltip"      class="nav-link"><span class="nav-dot"></span>Tooltip</a>
+      <a href="#navigation"   class="nav-link"><span class="nav-dot"></span>Navigation</a>
+      <a href="#sidepanel"    class="nav-link"><span class="nav-dot"></span>Side Panels</a>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    Built from <strong>Figma source</strong><br>
+    DS – Balthazar UI · Kameleoon
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!--  MAIN                                                          -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <header class="hero" id="hero">
+    <div class="hero-orb1"></div>
+    <div class="hero-orb2"></div>
+    <div class="hero-orb3"></div>
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>2023 Release</div>
+    <h1>DS – Balthazar UI</h1>
+    <p class="hero-sub">Components and Guidelines — the single source of truth for building consistent, accessible interfaces at Kameleoon.</p>
+    <div class="hero-stats">
+      <div><span class="stat-value">40+</span><span class="stat-label">Components</span></div>
+      <div><span class="stat-value">6</span><span class="stat-label">Foundation pages</span></div>
+      <div><span class="stat-value">7</span><span class="stat-label">Color palettes</span></div>
+    </div>
+    <code class="hero-token">$blue-70 · #4142EF · Primary brand color</code>
+  </header>
+
+  <div class="content">
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  COLORS                                                  -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <section class="section" id="colors">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="9" r="7.5" stroke="#4142EF" stroke-width="1.4"/>
+            <circle cx="9" cy="9" r="3.5" fill="#4142EF" opacity=".3"/>
+            <circle cx="9" cy="9" r="1.8" fill="#4142EF"/>
+          </svg>
+        </div>
+        <div>
+          <div class="section-title">Colors</div>
+          <div class="section-desc">Primitive tokens, semantic aliases, and usage guidance</div>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ</span>
+        <div>Primary brand color is <code class="token">$blue-70</code> <strong>#4142EF</strong>. Dark mode primary is <code class="token">$blue-35</code> <strong>#C0C1FF</strong>. All tokens follow the naming pattern <code class="token">$[palette]-[scale]</code> where 10 = lightest and 99 = darkest.</div>
+      </div>
+
+      <!-- Blue -->
+      <div class="sub">
+        <div class="sub-title">Blue — Primary palette</div>
+        <div class="color-ramp">
+          <div class="color-swatch"><div class="swatch-chip" style="background:#FBFAFF"></div><div class="swatch-meta"><div class="swatch-scale">10</div><div class="swatch-hex">#FBFAFF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#F5F5FF"></div><div class="swatch-meta"><div class="swatch-scale">20</div><div class="swatch-hex">#F5F5FF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#F0EFFF"></div><div class="swatch-meta"><div class="swatch-scale">25</div><div class="swatch-hex">#F0EFFF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#E1E0FF"></div><div class="swatch-meta"><div class="swatch-scale">30</div><div class="swatch-hex">#E1E0FF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#C0C1FF"></div><div class="swatch-meta"><div class="swatch-scale">35</div><div class="swatch-hex">#C0C1FF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#A1A3FF"></div><div class="swatch-meta"><div class="swatch-scale">40</div><div class="swatch-hex">#A1A3FF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#7F84FF"></div><div class="swatch-meta"><div class="swatch-scale">50</div><div class="swatch-hex">#7F84FF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#5E62FF"></div><div class="swatch-meta"><div class="swatch-scale">60</div><div class="swatch-hex">#5E62FF</div></div></div>
+          <div class="color-swatch" style="outline:2px solid #4142EF;outline-offset:-2px;border-radius:6px"><div class="swatch-chip" style="background:#4142EF"></div><div class="swatch-meta"><div class="swatch-scale"><strong>70 ★</strong></div><div class="swatch-hex">#4142EF</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#3838E7"></div><div class="swatch-meta"><div class="swatch-scale">80</div><div class="swatch-hex">#3838E7</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#231DD9"></div><div class="swatch-meta"><div class="swatch-scale">90</div><div class="swatch-hex">#231DD9</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#1200CA"></div><div class="swatch-meta"><div class="swatch-scale">95</div><div class="swatch-hex">#1200CA</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#0D00AA"></div><div class="swatch-meta"><div class="swatch-scale">98</div><div class="swatch-hex">#0D00AA</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#05006D"></div><div class="swatch-meta"><div class="swatch-scale">99</div><div class="swatch-hex">#05006D</div></div></div>
+        </div>
+      </div>
+
+      <!-- Gray -->
+      <div class="sub">
+        <div class="sub-title">Gray — Neutral palette</div>
+        <div class="color-ramp">
+          <div class="color-swatch"><div class="swatch-chip" style="background:#FCFCFD;border:1px solid #eee"></div><div class="swatch-meta"><div class="swatch-scale">10</div><div class="swatch-hex">#FCFCFD</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#F9F9FB"></div><div class="swatch-meta"><div class="swatch-scale">20</div><div class="swatch-hex">#F9F9FB</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#EDEBF2"></div><div class="swatch-meta"><div class="swatch-scale">25</div><div class="swatch-hex">#EDEBF2</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#DEDCE5"></div><div class="swatch-meta"><div class="swatch-scale">30</div><div class="swatch-hex">#DEDCE5</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#C7C5D0"></div><div class="swatch-meta"><div class="swatch-scale">35</div><div class="swatch-hex">#C7C5D0</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#ACAAB4"></div><div class="swatch-meta"><div class="swatch-scale">40</div><div class="swatch-hex">#ACAAB4</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#918F9A"></div><div class="swatch-meta"><div class="swatch-scale">50</div><div class="swatch-hex">#918F9A</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#777680"></div><div class="swatch-meta"><div class="swatch-scale">60</div><div class="swatch-hex">#777680</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#5E5D67"></div><div class="swatch-meta"><div class="swatch-scale">70</div><div class="swatch-hex">#5E5D67</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#52515B"></div><div class="swatch-meta"><div class="swatch-scale">80</div><div class="swatch-hex">#52515B</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#46464F"></div><div class="swatch-meta"><div class="swatch-scale">90</div><div class="swatch-hex">#46464F</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#3B3B44"></div><div class="swatch-meta"><div class="swatch-scale">95</div><div class="swatch-hex">#3B3B44</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#303039"></div><div class="swatch-meta"><div class="swatch-scale">98</div><div class="swatch-hex">#303039</div></div></div>
+          <div class="color-swatch"><div class="swatch-chip" style="background:#1B1B23"></div><div class="swatch-meta"><div class="swatch-scale">99</div><div class="swatch-hex">#1B1B23</div></div></div>
+        </div>
+      </div>
+
+      <!-- Semantic -->
+      <div class="sub">
+        <div class="sub-title">Semantic colors</div>
+        <div class="color-grid">
+          <div class="color-card"><div class="color-card-chip" style="background:#4142EF"></div><div class="color-card-info"><div class="color-card-name">Primary / Interactive</div><div class="color-card-role">CTAs, links, focus rings, active states</div><code class="color-card-token">$blue-70</code></div></div>
+          <div class="color-card"><div class="color-card-chip" style="background:#00C290"></div><div class="color-card-info"><div class="color-card-name">Success</div><div class="color-card-role">Confirmations, positive feedback</div><code class="color-card-token">$green-40</code></div></div>
+          <div class="color-card"><div class="color-card-chip" style="background:#FD4848"></div><div class="color-card-info"><div class="color-card-name">Danger / Error</div><div class="color-card-role">Errors, destructive actions</div><code class="color-card-token">$red-50</code></div></div>
+          <div class="color-card"><div class="color-card-chip" style="background:#E09F43"></div><div class="color-card-info"><div class="color-card-name">Warning</div><div class="color-card-role">Alerts, cautionary states</div><code class="color-card-token">$yellow-60</code></div></div>
+          <div class="color-card"><div class="color-card-chip" style="background:#CC495D"></div><div class="color-card-info"><div class="color-card-name">Wine / Accent</div><div class="color-card-role">Tags, data categorization</div><code class="color-card-token">$wine-60</code></div></div>
+          <div class="color-card"><div class="color-card-chip" style="background:#C0C1FF"></div><div class="color-card-info"><div class="color-card-name">Dark Mode Primary</div><div class="color-card-role">Interactive color in dark contexts</div><code class="color-card-token">$blue-35</code></div></div>
+        </div>
+      </div>
+
+      <!-- Extra -->
+      <div class="sub">
+        <div class="sub-title">Extra / named colors</div>
+        <div class="extra-grid">
+          <div class="extra-chip"><div class="extra-dot" style="background:#FFE299"></div><div class="extra-info"><div class="extra-name">$jasmine</div><div class="extra-hex">#FFE299</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#CA4E1B"></div><div class="extra-info"><div class="extra-name">$brick</div><div class="extra-hex">#CA4E1B</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#FF8346"></div><div class="extra-info"><div class="extra-name">$tangerine</div><div class="extra-hex">#FF8346</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#BD3597"></div><div class="extra-info"><div class="extra-name">$fuchsia</div><div class="extra-hex">#BD3597</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#DF57BC"></div><div class="extra-info"><div class="extra-name">$pink</div><div class="extra-hex">#DF57BC</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#6FBE49"></div><div class="extra-info"><div class="extra-name">$grinch</div><div class="extra-hex">#6FBE49</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#6CD800"></div><div class="extra-info"><div class="extra-name">$grass</div><div class="extra-hex">#6CD800</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#35BDAD"></div><div class="extra-info"><div class="extra-name">$turquoise</div><div class="extra-hex">#35BDAD</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#568BF2"></div><div class="extra-info"><div class="extra-name">$sea</div><div class="extra-hex">#568BF2</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#20B3DF"></div><div class="extra-info"><div class="extra-name">$sky</div><div class="extra-hex">#20B3DF</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#E1A095"></div><div class="extra-info"><div class="extra-name">$sand</div><div class="extra-hex">#E1A095</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#9074BE"></div><div class="extra-info"><div class="extra-name">$lavanda</div><div class="extra-hex">#9074BE</div></div></div>
+          <div class="extra-chip"><div class="extra-dot" style="background:#9747FF"></div><div class="extra-info"><div class="extra-name">$purple</div><div class="extra-hex">#9747FF</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  TYPOGRAPHY                                              -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <section class="section" id="typography">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4h12M9 4v10M6 14h6" stroke="#4142EF" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="section-title">Typography</div>
+          <div class="section-desc">Type system tokens — <code class="token">$typo-font-primary</code> Montserrat · <code class="token">$typo-font-secondary</code> Roboto · <code class="token">$typo-font-monospace</code> Menlo</div>
+        </div>
+      </div>
+
+      <!-- Font families -->
+      <div class="sub">
+        <div class="sub-title">Font families</div>
+        <table class="ds-table" style="margin-bottom:24px">
+          <thead><tr><th>Token</th><th>Family</th><th>Weights</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td><code>$typo-font-primary</code></td><td>Montserrat</td><td>300 400 500 600 700 800</td><td>Headings H1–H6, overlines, buttons, labels, brand text</td></tr>
+            <tr><td><code>$typo-font-secondary</code></td><td>Roboto</td><td>300 400 500 600 700</td><td>Body text, UI labels, nav items, form elements, descriptions</td></tr>
+            <tr><td><code>$typo-font-monospace</code></td><td>Menlo / Roboto Mono</td><td>400 500</td><td>Code snippets, token names, hex values, technical content</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Type scale -->
+      <div class="sub">
+        <div class="sub-title">Type scale</div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:34px;letter-spacing:0.25px;line-height:1.15;color:#0A0A0A">Heading 1</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-h1</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>400 Regular</div><div class="type-meta-cell"><strong>Size</strong>34px</div><div class="type-meta-cell"><strong>Tracking</strong>0.25px</div><div class="type-meta-cell"><strong>Case</strong>Sentence</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:26px;line-height:1.2;color:#0A0A0A">Heading 2</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-h2</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>600 SemiBold</div><div class="type-meta-cell"><strong>Size</strong>26px</div><div class="type-meta-cell"><strong>Tracking</strong>0px</div><div class="type-meta-cell"><strong>Case</strong>Sentence</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:500;font-size:22px;line-height:1.3;color:#0A0A0A">Heading 3</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-h3</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>500 Medium</div><div class="type-meta-cell"><strong>Size</strong>22px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:500;font-size:18px;letter-spacing:0.15px;line-height:1.35;color:#0A0A0A">Heading 4</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-h4</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>500 Medium</div><div class="type-meta-cell"><strong>Size</strong>18px</div><div class="type-meta-cell"><strong>Tracking</strong>0.15px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:400;font-size:16px;letter-spacing:0.15px;color:#0A0A0A">Heading 5</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-h5</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>400 Regular</div><div class="type-meta-cell"><strong>Size</strong>16px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:500;font-size:14px;letter-spacing:0.1px;color:#0A0A0A">Heading 6</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-h6</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>500 Medium</div><div class="type-meta-cell"><strong>Size</strong>14px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Roboto',sans-serif;font-weight:400;font-size:16px;letter-spacing:0.5px;line-height:1.6;color:#0A0A0A">Text L Regular — The quick brown fox jumps over the lazy dog. Kameleoon helps product teams run experiments at scale and understand their users better.</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-text-l</div><div class="type-meta-cell"><strong>Font</strong>Roboto</div><div class="type-meta-cell"><strong>Weight</strong>400 Regular</div><div class="type-meta-cell"><strong>Size</strong>16px</div><div class="type-meta-cell"><strong>Tracking</strong>0.5px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Roboto',sans-serif;font-weight:400;font-size:13px;letter-spacing:0.25px;line-height:1.6;color:#0A0A0A">Text M Regular — The quick brown fox jumps over the lazy dog. Kameleoon helps product teams run experiments at scale.</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-text-m-regular</div><div class="type-meta-cell"><strong>Font</strong>Roboto</div><div class="type-meta-cell"><strong>Weight</strong>400 Regular</div><div class="type-meta-cell"><strong>Size</strong>13px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Roboto',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.25px;line-height:1.6;color:#0A0A0A">Text M Bold — SemiBold body text, used for emphasis within paragraphs and table values.</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-text-m-bold</div><div class="type-meta-cell"><strong>Font</strong>Roboto</div><div class="type-meta-cell"><strong>Weight</strong>600 SemiBold</div><div class="type-meta-cell"><strong>Size</strong>13px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Roboto',sans-serif;font-weight:400;font-size:12px;letter-spacing:0.4px;color:#5E5D67">Caption — Supporting text for form labels, table footnotes, timestamps</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-caption</div><div class="type-meta-cell"><strong>Font</strong>Roboto</div><div class="type-meta-cell"><strong>Weight</strong>400 Regular</div><div class="type-meta-cell"><strong>Size</strong>12px</div><div class="type-meta-cell"><strong>Tracking</strong>0.4px</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;letter-spacing:1em;text-transform:uppercase;color:#0A0A0A">OVERLINE M</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-overline-m</div><div class="type-meta-cell"><strong>Font</strong>Montserrat</div><div class="type-meta-cell"><strong>Weight</strong>600 SemiBold</div><div class="type-meta-cell"><strong>Size</strong>12px</div><div class="type-meta-cell"><strong>Case</strong>ALL CAPS</div><div class="type-meta-cell"><strong>Tracking</strong>1em</div></div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-sample"><p style="font-family:'Roboto Mono',monospace;font-weight:500;font-size:13px;color:#4142EF">$blue-70 · border-radius: 8px · font-size: 13px</p></div>
+          <div class="type-meta"><div class="type-meta-cell"><strong>Token</strong>$typography-code</div><div class="type-meta-cell"><strong>Font</strong>Menlo / Roboto Mono</div><div class="type-meta-cell"><strong>Weight</strong>500 Medium</div><div class="type-meta-cell"><strong>Size</strong>13px</div></div>
+        </div>
+      </div>
+
+      <!-- Component typography -->
+      <div class="sub">
+        <div class="sub-title">Component typography tokens</div>
+        <table class="ds-table">
+          <thead><tr><th>Token</th><th>Font</th><th>Weight</th><th>Size</th><th>Case</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td><code>$typography-button-m</code></td><td>Roboto</td><td>SemiBold 600</td><td>12px</td><td>All caps · 1.25px</td><td>Medium buttons</td></tr>
+            <tr><td><code>$typography-button-s</code></td><td>Roboto</td><td>SemiBold 600</td><td>11px</td><td>All caps · 1.25px</td><td>Small buttons</td></tr>
+            <tr><td><code>$typography-label</code></td><td>Roboto</td><td>Medium 500</td><td>13px</td><td>Sentence · 0.25px</td><td>Form labels, tags</td></tr>
+            <tr><td><code>$typography-nav-regular</code></td><td>Roboto</td><td>Regular 400</td><td>13px</td><td>Sentence · 0.4px</td><td>Navigation items</td></tr>
+            <tr><td><code>$typography-nav-medium</code></td><td>Roboto</td><td>Medium 500</td><td>13px</td><td>Sentence · 0.4px</td><td>Active nav items</td></tr>
+            <tr><td><code>$typography-nav-bold</code></td><td>Roboto</td><td>Bold 700</td><td>13px</td><td>Sentence · 0.4px</td><td>Section headers in nav</td></tr>
+            <tr><td><code>$typography-link-m</code></td><td>Roboto</td><td>SemiBold 600</td><td>13px</td><td>Sentence · 1px</td><td>Inline hyperlinks</td></tr>
+            <tr><td><code>$typography-link-s</code></td><td>Roboto</td><td>Medium 500</td><td>12px</td><td>Sentence · 1px</td><td>Small hyperlinks</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  LAYOUT & SPACING                                        -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <section class="section" id="layout">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="3" rx="1" stroke="#4142EF" stroke-width="1.3"/><line x1="2" y1="2.5" x2="2" y2="15.5" stroke="#4142EF" stroke-width="1.3"/><line x1="16" y1="2.5" x2="16" y2="15.5" stroke="#4142EF" stroke-width="1.3"/></svg>
+        </div>
+        <div>
+          <div class="section-title">Layout & Spacing</div>
+          <div class="section-desc">4px base grid, spacing scale, border radius, and breakpoints</div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <div class="sub-title">Spacing scale — 4px base</div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:4px"></div><span class="spacing-token">space-1</span><span class="spacing-px">4px</span><span class="spacing-use">Icon gaps, tight inline elements</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:8px"></div><span class="spacing-token">space-2</span><span class="spacing-px">8px</span><span class="spacing-use">Compact padding, XS gaps between elements</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:12px"></div><span class="spacing-token">space-3</span><span class="spacing-px">12px</span><span class="spacing-use">Button internal padding, form element gaps</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:16px"></div><span class="spacing-token">space-4</span><span class="spacing-px">16px</span><span class="spacing-use">Base padding, list item gaps, content gutter</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:20px"></div><span class="spacing-token">space-5</span><span class="spacing-px">20px</span><span class="spacing-use">Card padding, moderate element spacing</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:24px"></div><span class="spacing-token">space-6</span><span class="spacing-px">24px</span><span class="spacing-use">Panel padding, section gutter</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:32px"></div><span class="spacing-token">space-8</span><span class="spacing-px">32px</span><span class="spacing-use">Section separation, content blocks</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:40px"></div><span class="spacing-token">space-10</span><span class="spacing-px">40px</span><span class="spacing-use">Major section separation</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:48px"></div><span class="spacing-token">space-12</span><span class="spacing-px">48px</span><span class="spacing-use">Page section padding, hero spacing</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:64px"></div><span class="spacing-token">space-16</span><span class="spacing-px">64px</span><span class="spacing-use">Page-level vertical rhythm, hero top padding</span></div>
+      </div>
+
+      <div class="sub">
+        <div class="sub-title">Border radius scale</div>
+        <div class="radius-row">
+          <div class="radius-demo"><div class="radius-box" style="border-radius:4px"></div><div class="radius-label">xs<code>4px</code></div></div>
+          <div class="radius-demo"><div class="radius-box" style="border-radius:6px"></div><div class="radius-label">sm<code>6px</code></div></div>
+          <div class="radius-demo"><div class="radius-box" style="border-radius:8px"></div><div class="radius-label">md<code>8px</code></div></div>
+          <div class="radius-demo"><div class="radius-box" style="border-radius:12px"></div><div class="radius-label">lg<code>12px</code></div></div>
+          <div class="radius-demo"><div class="radius-box" style="border-radius:16px"></div><div class="radius-label">xl<code>16px</code></div></div>
+          <div class="radius-demo"><div class="radius-box" style="border-radius:24px"></div><div class="radius-label">2xl<code>24px</code></div></div>
+          <div class="radius-demo"><div class="radius-box" style="border-radius:100px"></div><div class="radius-label">pill<code>100px</code></div></div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <div class="sub-title">Responsive grid</div>
+        <table class="ds-table">
+          <thead><tr><th>Breakpoint</th><th>Width</th><th>Columns</th><th>Gutter</th><th>Margin</th></tr></thead>
+          <tbody>
+            <tr><td>Mobile</td><td>&lt; 768px</td><td>4</td><td>16px</td><td>16px</td></tr>
+            <tr><td>Tablet</td><td>768–1024px</td><td>8</td><td>20px</td><td>24px</td></tr>
+            <tr><td>Desktop</td><td>1024–1440px</td><td>12</td><td>24px</td><td>32px</td></tr>
+            <tr><td>Wide</td><td>&gt; 1440px</td><td>12</td><td>24px</td><td>64px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  SHAPE & SHADOW                                          -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <section class="section" id="shadow">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="9" height="9" rx="2.5" fill="#4142EF" opacity=".25"/><rect x="6" y="6" width="9" height="9" rx="2.5" stroke="#4142EF" stroke-width="1.3" fill="none"/></svg>
+        </div>
+        <div>
+          <div class="section-title">Shape & Shadow</div>
+          <div class="section-desc">Elevation system and shadow tokens</div>
+        </div>
+      </div>
+      <div class="shadow-row">
+        <div class="shadow-box" style="border:1px solid var(--color-border)"><strong>Flat / 0</strong>No shadow<br><span style="font-family:var(--font-monospace);font-size:9.5px;color:var(--color-text-muted)">border only</span></div>
+        <div class="shadow-box" style="box-shadow:0 1px 3px rgba(65,66,239,.08)"><strong>Shadow XS</strong>Cards, subtle lift<br><span style="font-family:var(--font-monospace);font-size:9.5px;color:var(--color-text-muted)">0 1px 3px rgba(65,66,239,.08)</span></div>
+        <div class="shadow-box" style="box-shadow:0 2px 8px rgba(65,66,239,.1)"><strong>Shadow SM</strong>Dropdowns, popovers<br><span style="font-family:var(--font-monospace);font-size:9.5px;color:var(--color-text-muted)">0 2px 8px rgba(65,66,239,.1)</span></div>
+        <div class="shadow-box" style="box-shadow:0 4px 16px rgba(65,66,239,.14)"><strong>Shadow MD</strong>Modals, side panels<br><span style="font-family:var(--font-monospace);font-size:9.5px;color:var(--color-text-muted)">0 4px 16px rgba(65,66,239,.14)</span></div>
+        <div class="shadow-box" style="box-shadow:0 12px 40px rgba(0,0,0,.16)"><strong>Shadow LG</strong>Full-screen overlays<br><span style="font-family:var(--font-monospace);font-size:9.5px;color:var(--color-text-muted)">0 12px 40px rgba(0,0,0,.16)</span></div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  ICONS                                                   -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <section class="section" id="icons">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polygon points="9,2 11,7 17,7 12.5,10.5 14,16 9,12.5 4,16 5.5,10.5 1,7 7,7" stroke="#4142EF" stroke-width="1.3" fill="none" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="section-title">Icons</div>
+          <div class="section-desc">Icon set, sizing tokens, and usage guidelines</div>
+        </div>
+      </div>
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ</span>
+        <div><strong>Stroke-based icons by default.</strong> Default size is 20px. Filled variants are reserved for active/selected states only. Icons should always inherit <code class="token">currentColor</code> so they adapt to their context.</div>
+      </div>
+      <div class="sub">
+        <div class="sub-title">Common icons — 20px</div>
+        <div class="icon-grid">
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>User</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Bell</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20,6 9,17 4,12"/></svg>Check</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Close</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12l7 7 7-7"/></svg>Down</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Arrow</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>Info</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Trash</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Settings</div>
+          <div class="icon-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Grid</div>
+        </div>
+      </div>
+      <div class="sub">
+        <div class="sub-title">Icon size tokens</div>
+        <table class="ds-table">
+          <thead><tr><th>Size</th><th>px</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td>XS</td><td>12px</td><td>Dense tables, small inline labels</td></tr>
+            <tr><td>SM</td><td>16px</td><td>Badges, chips, button icons</td></tr>
+            <tr><td>MD (default)</td><td>20px</td><td>Form inputs, navigation, toolbar items</td></tr>
+            <tr><td>LG</td><td>24px</td><td>Standalone icon buttons, modal headers</td></tr>
+            <tr><td>XL</td><td>32–48px</td><td>Empty states, feature illustrations</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  COMPONENTS                                              -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <div class="divider-label">Components</div>
+
+    <!-- ── ACCORDION ──────────────────────────────────────────── -->
+    <section class="section" id="accordion">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Accordion</div><div class="comp-desc">Collapsible content panels for progressive disclosure.</div></div>
+          <span class="comp-badge">Interactive</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;align-items:stretch;gap:5px">
+            <div class="d-acc-item open">
+              <div class="d-acc-header">What is A/B testing? <svg class="d-acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+              <div class="d-acc-body">A/B testing compares two versions of a page element to determine which performs better based on a defined metric.</div>
+            </div>
+            <div class="d-acc-item">
+              <div class="d-acc-header" style="color:var(--color-text-secondary)">How do I create a feature flag? <svg class="d-acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+            </div>
+            <div class="d-acc-item">
+              <div class="d-acc-header" style="color:var(--color-text-secondary)">What metrics can I track? <svg class="d-acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">default · bordered · flush</div></div>
+            <div class="prop-card"><div class="prop-name">defaultOpen</div><div class="prop-vals">string | null — item key</div></div>
+            <div class="prop-card"><div class="prop-name">multiple</div><div class="prop-vals">boolean — allow multiple open</div></div>
+            <div class="prop-card"><div class="prop-name">disabled</div><div class="prop-vals">boolean per item</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use for FAQs, settings panels, and secondary content users may not always need.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't hide critical actions or primary CTAs inside an accordion.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── AVATAR ──────────────────────────────────────────────── -->
+    <section class="section" id="avatar">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Avatar</div><div class="comp-desc">Visual representation of a user — photo, initials, or fallback icon.</div></div>
+          <span class="comp-badge">Display</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview">
+            <div class="d-avatar" style="width:24px;height:24px;background:#4142EF;font-size:9px">JD</div>
+            <div class="d-avatar" style="width:32px;height:32px;background:#00C290;font-size:11px">AB</div>
+            <div class="d-avatar" style="width:40px;height:40px;background:#FD4848;font-size:14px">CK</div>
+            <div class="d-avatar" style="width:48px;height:48px;background:#CC495D;font-size:16px">ML</div>
+            <div class="d-avatar" style="width:56px;height:56px;background:#E09F43;font-size:18px">TS</div>
+            <div class="d-avatar" style="width:40px;height:40px;background:#C0C1FF;font-size:12px;color:#05006D">+4</div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">xs(24) · sm(32) · md(40) · lg(48) · xl(56)</div></div>
+            <div class="prop-card"><div class="prop-name">src</div><div class="prop-vals">string — image URL</div></div>
+            <div class="prop-card"><div class="prop-name">fallback</div><div class="prop-vals">string — max 2 chars initials</div></div>
+            <div class="prop-card"><div class="prop-name">status</div><div class="prop-vals">online · away · offline · none</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use a deterministic color derived from the user's name hash for initials avatars.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't stack more than 3 avatars without a count indicator (e.g. +N).</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BADGE ───────────────────────────────────────────────── -->
+    <section class="section" id="badge">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Badge</div><div class="comp-desc">Small status indicator for labels, counts, and state communication.</div></div>
+          <span class="comp-badge">Status</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview">
+            <span class="d-badge d-badge-blue">Active</span>
+            <span class="d-badge d-badge-green">Running</span>
+            <span class="d-badge d-badge-red">Failed</span>
+            <span class="d-badge d-badge-yellow">Warning</span>
+            <span class="d-badge d-badge-wine">Paused</span>
+            <span class="d-badge d-badge-gray">Draft</span>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">blue · green · red · yellow · wine · gray</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm · md (default)</div></div>
+            <div class="prop-card"><div class="prop-name">dot</div><div class="prop-vals">boolean — status dot prefix</div></div>
+            <div class="prop-card"><div class="prop-name">count</div><div class="prop-vals">number — numeric overlay badge</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Keep badge text to 1–2 words. Same color must always mean the same status across the product.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use badges as full-length labels or action buttons.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BUTTON ──────────────────────────────────────────────── -->
+    <section class="section" id="button">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Button</div><div class="comp-desc">Core interactive element. Uses <code class="token">$typography-button-m</code> (Roboto SemiBold 12px all-caps) by default.</div></div>
+          <span class="comp-badge">Action</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;align-items:flex-start;gap:14px">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button class="d-btn d-btn-primary d-btn-m">Primary</button>
+              <button class="d-btn d-btn-secondary d-btn-m">Secondary</button>
+              <button class="d-btn d-btn-ghost d-btn-m">Ghost</button>
+              <button class="d-btn d-btn-danger d-btn-m">Danger</button>
+              <a href="#" class="d-btn d-btn-link">Link</a>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button class="d-btn d-btn-primary d-btn-s">Small</button>
+              <button class="d-btn d-btn-primary d-btn-m">Medium</button>
+              <button class="d-btn d-btn-primary d-btn-l">Large</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button class="d-btn d-btn-primary d-btn-m" disabled>Disabled</button>
+              <button class="d-btn d-btn-primary d-btn-m" style="display:inline-flex;gap:6px;align-items:center">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="1.6"><path d="M7 2v10M2 7l5 5 5-5"/></svg>
+                With icon
+              </button>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">primary · secondary · ghost · danger · link</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm(28px) · md(36px) · lg(44px)</div></div>
+            <div class="prop-card"><div class="prop-name">disabled</div><div class="prop-vals">boolean — 42% opacity, no pointer events</div></div>
+            <div class="prop-card"><div class="prop-name">loading</div><div class="prop-vals">boolean — spinner replaces text, blocks clicks</div></div>
+            <div class="prop-card"><div class="prop-name">iconLeft / iconRight</div><div class="prop-vals">ReactNode — 16px icon</div></div>
+            <div class="prop-card"><div class="prop-name">fullWidth</div><div class="prop-vals">boolean — 100% container width</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use one Primary button per screen. Use Secondary for complementary actions alongside Primary.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use vague labels like "Click here." Don't place two Primary buttons in the same context.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CHECKBOX & RADIO ────────────────────────────────────── -->
+    <section class="section" id="checkbox">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Checkbox & Radio</div><div class="comp-desc">Selection controls for single (radio) and multi-select (checkbox) scenarios.</div></div>
+          <span class="comp-badge">Form</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;gap:16px;align-items:flex-start">
+            <div style="display:flex;gap:20px;flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--color-text-primary)"><input type="checkbox" class="d-check" checked> Checked</label>
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--color-text-primary)"><input type="checkbox" class="d-check"> Unchecked</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-muted);opacity:.5"><input type="checkbox" class="d-check" disabled> Disabled</label>
+            </div>
+            <div style="display:flex;gap:20px;flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--color-text-primary)"><input type="radio" class="d-radio-in" name="demo-r"> Option A</label>
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--color-text-primary)"><input type="radio" class="d-radio-in" name="demo-r" checked> Option B</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-muted);opacity:.5"><input type="radio" class="d-radio-in" disabled> Disabled</label>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">checked</div><div class="prop-vals">boolean</div></div>
+            <div class="prop-card"><div class="prop-name">indeterminate</div><div class="prop-vals">boolean — partial selection state (checkbox only)</div></div>
+            <div class="prop-card"><div class="prop-name">disabled</div><div class="prop-vals">boolean — 45% opacity</div></div>
+            <div class="prop-card"><div class="prop-name">label</div><div class="prop-vals">string | ReactNode — always visible</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use checkboxes for multi-select; radios for mutually exclusive options. Always show a visible label.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use radio buttons for binary yes/no — use a Toggle instead.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HYPERLINK ───────────────────────────────────────────── -->
+    <section class="section" id="hyperlink">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Hyperlink</div><div class="comp-desc">Inline navigational text link. Uses <code class="token">$typography-link-m</code> (Roboto SemiBold 13px).</div></div>
+          <span class="comp-badge">Navigation</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="gap:20px">
+            <a href="#" class="d-link" style="font-size:13px">Medium link →</a>
+            <a href="#" class="d-link" style="font-size:12px;font-weight:500">Small link →</a>
+            <a href="#" class="d-link" style="color:var(--red-60)">Destructive link</a>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">m (13px) · s (12px)</div></div>
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">default · destructive</div></div>
+            <div class="prop-card"><div class="prop-name">external</div><div class="prop-vals">boolean — shows ↗ icon, opens new tab</div></div>
+            <div class="prop-card"><div class="prop-name">disabled</div><div class="prop-vals">boolean</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use descriptive link text that explains the destination. Underline all links for accessibility.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use "click here" or "read more" without context. Don't use links for primary actions — use buttons.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INPUTS ──────────────────────────────────────────────── -->
+    <section class="section" id="inputs">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Inputs</div><div class="comp-desc">Text fields, textarea, search, and number inputs for data entry.</div></div>
+          <span class="comp-badge">Form</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;align-items:flex-start;gap:10px">
+            <input class="d-input" type="text" placeholder="Default placeholder…">
+            <input class="d-input" type="text" value="Active / focused" style="border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(65,66,239,.12)">
+            <input class="d-input error" type="text" value="Error state">
+            <input class="d-input" type="text" placeholder="Disabled" disabled>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">type</div><div class="prop-vals">text · email · password · number · search · url</div></div>
+            <div class="prop-card"><div class="prop-name">state</div><div class="prop-vals">default · active · error · success · disabled</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm(32px) · md(36px, default) · lg(44px)</div></div>
+            <div class="prop-card"><div class="prop-name">prefix / suffix</div><div class="prop-vals">ReactNode — icon or text adornment</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Always pair with a visible label. Show error messages directly below with <code class="token">$red-50</code> text.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use placeholder text as a replacement for labels — it disappears on focus.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NOTIFICATION ────────────────────────────────────────── -->
+    <section class="section" id="notification">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Notification</div><div class="comp-desc">Inline alerts and toast messages for system feedback.</div></div>
+          <span class="comp-badge">Feedback</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;align-items:flex-start;gap:9px">
+            <div class="d-notif d-notif-info">
+              <div class="notif-dot">i</div>
+              <div><div class="notif-title">Experiment started</div><div class="notif-body">Your A/B test is now live. Results appear within 24h.</div></div>
+            </div>
+            <div class="d-notif d-notif-success">
+              <div class="notif-dot">✓</div>
+              <div><div class="notif-title">Changes saved</div><div class="notif-body">Feature flag updated across all environments.</div></div>
+            </div>
+            <div class="d-notif d-notif-error">
+              <div class="notif-dot">!</div>
+              <div><div class="notif-title">Connection failed</div><div class="notif-body">Unable to reach the analytics server. Please retry.</div></div>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">info · success · error · warning</div></div>
+            <div class="prop-card"><div class="prop-name">title</div><div class="prop-vals">string — bold heading line</div></div>
+            <div class="prop-card"><div class="prop-name">dismissible</div><div class="prop-vals">boolean — shows × close button</div></div>
+            <div class="prop-card"><div class="prop-name">action</div><div class="prop-vals">{ label, onClick } — inline CTA link</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Keep titles to a single line. The body provides context; the title states what happened.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't stack more than 3 toasts at once. Auto-dismiss informational toasts after 5s.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OVERLAYS ────────────────────────────────────────────── -->
+    <section class="section" id="overlays">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Overlays</div><div class="comp-desc">Modals and dialogs for focused tasks requiring full user attention.</div></div>
+          <span class="comp-badge">Overlay</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="padding:0">
+            <div class="d-modal-backdrop">
+              <div class="d-modal">
+                <div class="d-modal-title">Delete experiment?</div>
+                <div class="d-modal-body">This will permanently delete the experiment and all associated data. This action cannot be undone.</div>
+                <div class="d-modal-actions">
+                  <button class="d-btn d-btn-ghost d-btn-s">Cancel</button>
+                  <button class="d-btn d-btn-danger d-btn-s">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">type</div><div class="prop-vals">modal · drawer · alert-dialog · sheet</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm(420px) · md(560px) · lg(720px) · fullscreen</div></div>
+            <div class="prop-card"><div class="prop-name">closeOnBackdrop</div><div class="prop-vals">boolean — default true for modal, false for alert</div></div>
+            <div class="prop-card"><div class="prop-name">footer</div><div class="prop-vals">ReactNode — action buttons slot</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use modals for destructive confirmations and complex focused forms. Always provide a dismiss option.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't nest modals. Don't use overlays for simple notifications — use Toast instead.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROGRESS BAR ────────────────────────────────────────── -->
+    <section class="section" id="progress">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Progress Bar</div><div class="comp-desc">Visual indicator of task completion or loading progress.</div></div>
+          <span class="comp-badge">Feedback</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;gap:16px;width:100%">
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-muted);margin-bottom:6px"><span>Loading experiments</span><span>68%</span></div>
+              <div class="d-progress-track"><div class="d-progress-fill" style="width:68%"></div></div>
+            </div>
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-text-muted);margin-bottom:6px"><span>Visitors reached</span><span>34%</span></div>
+              <div class="d-progress-track" style="height:8px"><div class="d-progress-fill" style="width:34%;background:var(--green-40)"></div></div>
+            </div>
+            <div style="width:100%">
+              <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:6px">Indeterminate</div>
+              <div class="d-progress-track" style="overflow:hidden"><div style="height:5px;width:45%;background:var(--color-primary);border-radius:99px;animation:ind 1.4s ease-in-out infinite"></div></div>
+            </div>
+            <style>@keyframes ind{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}</style>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">value</div><div class="prop-vals">0–100 | null (indeterminate)</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm(4px) · md(5px) · lg(8px) · xl(12px)</div></div>
+            <div class="prop-card"><div class="prop-name">color</div><div class="prop-vals">primary · success · warning · error</div></div>
+            <div class="prop-card"><div class="prop-name">showLabel</div><div class="prop-vals">boolean — renders percentage text</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use indeterminate when duration is unknown. Always include a label to explain what is loading.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't show a progress bar for operations under 300ms — it creates visual noise.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKELETON ────────────────────────────────────────────── -->
+    <section class="section" id="skeleton">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Skeleton</div><div class="comp-desc">Placeholder loading states that mirror expected content layout.</div></div>
+          <span class="comp-badge">Loading</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;gap:10px;width:100%">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="d-skeleton" style="width:44px;height:44px;border-radius:50%;flex-shrink:0"></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+                <div class="d-skeleton" style="height:13px;width:55%;border-radius:4px"></div>
+                <div class="d-skeleton" style="height:11px;width:38%;border-radius:4px"></div>
+              </div>
+            </div>
+            <div class="d-skeleton" style="height:11px;width:100%;border-radius:4px"></div>
+            <div class="d-skeleton" style="height:11px;width:87%;border-radius:4px"></div>
+            <div class="d-skeleton" style="height:11px;width:92%;border-radius:4px"></div>
+            <div class="d-skeleton" style="height:72px;width:100%;border-radius:10px;margin-top:2px"></div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">text · circle · rect · card</div></div>
+            <div class="prop-card"><div class="prop-name">width / height</div><div class="prop-vals">string | number</div></div>
+            <div class="prop-card"><div class="prop-name">animate</div><div class="prop-vals">boolean — shimmer effect (default true)</div></div>
+            <div class="prop-card"><div class="prop-name">lines</div><div class="prop-vals">number — for text variant</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Mirror the exact layout. Use varied widths (not all 100%) for realistic text simulation.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't show skeletons for &lt;300ms loads. Don't combine spinners and skeletons for the same element.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TABS ────────────────────────────────────────────────── -->
+    <section class="section" id="tabs">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Tabs</div><div class="comp-desc">Horizontal navigation for switching between related content views.</div></div>
+          <span class="comp-badge">Navigation</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="flex-direction:column;align-items:flex-start;gap:20px;width:100%">
+            <div class="d-tabs" style="width:100%">
+              <div class="d-tab active">Overview</div>
+              <div class="d-tab">Results</div>
+              <div class="d-tab">Audience</div>
+              <div class="d-tab">Settings</div>
+            </div>
+            <div style="display:flex;gap:5px;background:var(--gray-20);padding:4px;border-radius:9px">
+              <div style="padding:6px 14px;border-radius:6px;background:white;font-size:12.5px;font-weight:500;color:var(--color-text-primary);box-shadow:0 1px 3px rgba(0,0,0,.08)">All</div>
+              <div style="padding:6px 14px;border-radius:6px;font-size:12.5px;color:var(--color-text-muted)">Running</div>
+              <div style="padding:6px 14px;border-radius:6px;font-size:12.5px;color:var(--color-text-muted)">Paused</div>
+              <div style="padding:6px 14px;border-radius:6px;font-size:12.5px;color:var(--color-text-muted)">Completed</div>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">underline · pills · segment</div></div>
+            <div class="prop-card"><div class="prop-name">defaultTab</div><div class="prop-vals">string — tab key</div></div>
+            <div class="prop-card"><div class="prop-name">badge</div><div class="prop-vals">Record&lt;tabKey, string | number&gt;</div></div>
+            <div class="prop-card"><div class="prop-name">disabled</div><div class="prop-vals">string[] — keys of disabled tabs</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use underline tabs for primary navigation; use segment/pills for filtering within a section.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't nest tabs within tabs. Limit to 5–6 tabs max before reconsidering navigation patterns.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TAG ─────────────────────────────────────────────────── -->
+    <section class="section" id="tag">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Tag</div><div class="comp-desc">Compact labels for categorizing, filtering, and multi-value inputs.</div></div>
+          <span class="comp-badge">Label</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="gap:8px;flex-wrap:wrap">
+            <span class="d-tag d-tag-default">Default</span>
+            <span class="d-tag d-tag-blue">Category</span>
+            <span class="d-tag d-tag-green">Active</span>
+            <span class="d-tag d-tag-default" style="cursor:pointer">Removable ×</span>
+            <span class="d-tag" style="background:var(--wine-10);border-color:var(--wine-35);color:var(--wine-80)">Wine</span>
+            <span class="d-tag" style="background:var(--yellow-10);border-color:var(--yellow-35);color:var(--yellow-90)">Warning</span>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">color</div><div class="prop-vals">default · blue · green · red · wine · yellow</div></div>
+            <div class="prop-card"><div class="prop-name">removable</div><div class="prop-vals">boolean — shows × icon on right</div></div>
+            <div class="prop-card"><div class="prop-name">clickable</div><div class="prop-vals">boolean — hover/active interaction states</div></div>
+            <div class="prop-card"><div class="prop-name">icon</div><div class="prop-vals">ReactNode — left-aligned prefix icon</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use tags in tag inputs, filter bars, and multi-select summaries. Consistent colors build mental models.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't confuse Tags with Badges. Tags are user-generated/interactive; badges are system status indicators.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOGGLE ──────────────────────────────────────────────── -->
+    <section class="section" id="toggle">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Toggle</div><div class="comp-desc">Binary on/off switch for settings that take immediate effect.</div></div>
+          <span class="comp-badge">Form</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="gap:24px">
+            <div style="display:flex;align-items:center;gap:10px"><div class="d-toggle"></div><span style="font-size:13px;color:var(--color-text-muted)">Off</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div class="d-toggle on"></div><span style="font-size:13px;color:var(--color-text-primary)">On</span></div>
+            <div style="display:flex;align-items:center;gap:10px;opacity:.45"><div class="d-toggle on"></div><span style="font-size:13px">Disabled</span></div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">checked</div><div class="prop-vals">boolean</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm · md (default)</div></div>
+            <div class="prop-card"><div class="prop-name">disabled</div><div class="prop-vals">boolean — 45% opacity</div></div>
+            <div class="prop-card"><div class="prop-name">label</div><div class="prop-vals">string — right-aligned descriptive text</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use toggles for binary settings that apply immediately with no save/apply step.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use a toggle when the change requires saving — use a checkbox + Save button instead.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOOLTIP ─────────────────────────────────────────────── -->
+    <section class="section" id="tooltip">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Tooltip</div><div class="comp-desc">Contextual hint overlay triggered on hover or keyboard focus.</div></div>
+          <span class="comp-badge">Overlay</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="gap:32px;padding-top:44px;flex-wrap:wrap">
+            <div class="d-tooltip-wrap">
+              <div class="d-tooltip">Confidence interval: 95%</div>
+              <button class="d-btn d-btn-secondary d-btn-s">Hover me</button>
+            </div>
+            <div class="d-tooltip-wrap">
+              <div class="d-tooltip" style="background:var(--color-primary)">Launch experiment now</div>
+              <button class="d-btn d-btn-primary d-btn-s">Primary tip</button>
+            </div>
+          </div>
+          <div class="props-grid">
+            <div class="prop-card"><div class="prop-name">placement</div><div class="prop-vals">top · bottom · left · right · auto</div></div>
+            <div class="prop-card"><div class="prop-name">trigger</div><div class="prop-vals">hover · focus · click</div></div>
+            <div class="prop-card"><div class="prop-name">delay</div><div class="prop-vals">number (ms) — show delay, default 300ms</div></div>
+            <div class="prop-card"><div class="prop-name">maxWidth</div><div class="prop-vals">number — defaults to 240px</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use to clarify icon-only buttons and surface contextual hints that don't clutter the main UI.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't put interactive elements (links, buttons) inside a tooltip. Don't use for critical information.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NAVIGATION ──────────────────────────────────────────── -->
+    <section class="section" id="navigation">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Navigation</div><div class="comp-desc">Sidebar and top navigation for product wayfinding. Uses <code class="token">$typography-nav-*</code> tokens throughout.</div></div>
+          <span class="comp-badge">Layout</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="padding:0">
+            <div class="dark-nav-preview" style="width:100%">
+              <div class="dark-nav-sidebar">
+                <div class="dark-nav-header">
+                  <div class="dark-nav-logo"></div>
+                  <span class="dark-nav-brand">Kameleoon</span>
+                </div>
+                <div class="dark-nav-item active"><span>Experiments</span></div>
+                <div class="dark-nav-item"><span>Feature Flags</span></div>
+                <div class="dark-nav-item"><span>Analytics</span></div>
+                <div class="dark-nav-item"><span>Audiences</span></div>
+                <div class="dark-nav-item"><span>Settings</span></div>
+              </div>
+              <div class="dark-nav-content">
+                <div class="dark-nav-row"></div>
+                <div class="dark-nav-cards">
+                  <div class="dark-nav-card"></div>
+                  <div class="dark-nav-card"></div>
+                  <div class="dark-nav-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="props-grid" style="margin-top:18px">
+            <div class="prop-card"><div class="prop-name">variant</div><div class="prop-vals">sidebar · topbar · combined</div></div>
+            <div class="prop-card"><div class="prop-name">collapsed</div><div class="prop-vals">boolean — icon-only mode (48px width)</div></div>
+            <div class="prop-card"><div class="prop-name">activeItem</div><div class="prop-vals">string — nav item key</div></div>
+            <div class="prop-card"><div class="prop-name">theme</div><div class="prop-vals">light · dark — dark uses <code>$black-99</code> background</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Keep primary nav items to 5–7. Group related items under collapsible sections for clarity.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't use both sidebar and topbar as competing primary navigations. Pick one hierarchy.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SIDE PANELS ─────────────────────────────────────────── -->
+    <section class="section" id="sidepanel">
+      <div class="comp-card">
+        <div class="comp-header">
+          <div><div class="comp-name">Side Panels</div><div class="comp-desc">Sliding detail panels for contextual actions without leaving the current view.</div></div>
+          <span class="comp-badge">Overlay</span>
+        </div>
+        <div class="comp-body">
+          <div class="preview" style="padding:0">
+            <div class="d-panel-preview" style="width:100%">
+              <div class="d-panel-main">
+                <div class="d-panel-main-row" style="width:60%"></div>
+                <div class="d-panel-main-row" style="width:80%"></div>
+                <div class="d-panel-main-row" style="width:72%"></div>
+              </div>
+              <div class="d-panel-drawer">
+                <div class="d-panel-drawer-title">Experiment details <span style="color:var(--color-text-muted);font-size:16px;cursor:pointer">×</span></div>
+                <div class="d-panel-drawer-row" style="width:80%"></div>
+                <div class="d-panel-drawer-row" style="width:65%"></div>
+                <div class="d-panel-drawer-row" style="width:75%"></div>
+                <div class="d-panel-cta"></div>
+              </div>
+            </div>
+          </div>
+          <div class="props-grid" style="margin-top:18px">
+            <div class="prop-card"><div class="prop-name">position</div><div class="prop-vals">right · left</div></div>
+            <div class="prop-card"><div class="prop-name">size</div><div class="prop-vals">sm(320px) · md(420px) · lg(560px)</div></div>
+            <div class="prop-card"><div class="prop-name">overlay</div><div class="prop-vals">boolean — background dimming</div></div>
+            <div class="prop-card"><div class="prop-name">persistent</div><div class="prop-vals">boolean — stays open on backdrop click</div></div>
+          </div>
+          <div class="usage-grid">
+            <div class="usage-card do"><div class="usage-head">✓ Do</div><div class="usage-text">Use side panels for detail views, filters, and multi-step flows that benefit from the parent page context.</div></div>
+            <div class="usage-card dont"><div class="usage-head">✗ Don't</div><div class="usage-text">Don't open a side panel from within another side panel. Avoid loading complex forms in narrow panels.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+const links = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('[id]');
+const main = document.querySelector('.main');
+
+function setActive() {
+  let current = 'hero';
+  sections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= 90) current = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}
+
+(main || window).addEventListener('scroll', setActive, { passive: true });
+window.addEventListener('scroll', setActive, { passive: true });
+setActive();
+</script>
+</body>
+</html>
